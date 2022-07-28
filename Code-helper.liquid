@@ -1,0 +1,20 @@
+--How to add custom css in shopify debut theme
+
+==firts way code
+
+    function onLoadStylesheetCustom() {
+   performance.mark('debut:theme_stylesheet_loaded.end');
+      performance.measure('debut:theme_stylesheet_loaded', 'debut:theme_stylesheet_loaded.start', 'debut:theme_stylesheet_loaded.end');
+
+
+      var url = "{{ 'custom.css' | asset_url }}";
+      var link = document.querySelector('link[href="' + url + '"]');
+      link.loaded = true;
+      link.dispatchEvent(new Event('load'));
+    }
+    
+    <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}" type="text/css" media="print" onload="this.media='all';onLoadStylesheetCustom()">
+
+==Second way(easy way)
+{{ 'custom.css' | asset_url | stylesheet_tag}}
+
